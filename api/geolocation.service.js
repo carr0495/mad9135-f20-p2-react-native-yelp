@@ -1,9 +1,4 @@
-// import React, { useState } from "react";
-
 export async function geolocal() {
-  //   const [lat, setLat] = useState("");
-  //   const [long, setLong] = useState("");
-
   if (navigator.geolocation) {
     console.log("working to get geolocation");
 
@@ -20,13 +15,8 @@ export async function geolocal() {
 
 function work(position) {
   console.log(position);
-  //   setLat(postion.coords.latitude);
-  //   setLong(position.coords.longitude);
-  //   console.log(latitude);
-  //   console.log(longitude);
 }
 
 function fail(err) {
-  //   console.log(err);
   console.log("it failed");
 }

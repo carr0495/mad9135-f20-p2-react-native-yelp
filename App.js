@@ -1,9 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { yelpFetch } from "./api/yelp.service";
 import { geolocal } from "./api/geolocation.service";
-import { location, Permissions } from "expo-permissions";
 
 export default function App() {
   const [yelp, setYelp] = useState();
@@ -13,7 +12,6 @@ export default function App() {
     yelpFetch()
       .then((data) => {
         setYelp(data);
-        // console.log(yelp);
         console.log("this is our fetch data");
         console.log(userLocation);
       })
@@ -21,24 +19,22 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    getLocation();
+    geolocal();
   }, []);
 
-  getLocation = async () => {
-    const { status } = await Permissions.askAsync(Permissions.location);
-    if (status !== "granted") {
-      console.log("denied");
-    }
+  // getLocation = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.location);
+  //   if (status !== "granted") {
+  //     console.log("denied");
+  //   }
 
-    const thisLocation = await Location.getCurrentPositionAsync();
-    setUserLocation(thisLocation);
-  };
+  //   const thisLocation = await Location.getCurrentPositionAsync();
+  //   setUserLocation(thisLocation);
+  // };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button}>
-        <Text>Find Food</Text>
-      </TouchableOpacity>
+      <Text>mike branch</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -50,10 +46,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  button: {
-    backgroundColor: "darkorange",
-    padding: 10,
-    borderRadius: 10,
   },
 });
