@@ -1,41 +1,67 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import { yelpFetch } from "./api/yelp.service";
-import { geolocal } from "./api/geolocation.service";
+import { geoLocal } from "./api/geolocation.service";
+import YelpData from "./components/YelpData";
 
 export default function App() {
   const [yelp, setYelp] = useState();
-  const [userLocation, setUserLocation] = useState();
+  const [userLong, setUserLong] = useState();
+  const [userLat, setUserLat] = useState();
+  const [input, setInput] = useState("");
 
   useEffect(() => {
-    yelpFetch()
+    console.log("fetching data");
+    yelpFetch(userLat, userLong, input)
       .then((data) => {
-        setYelp(data);
-        console.log("this is our fetch data");
-        console.log(userLocation);
+        let yelpData = data;
+        setYelp(yelpData);
       })
-      .catch((err) => console.log("fetch borked"));
-  }, []);
+      .catch((err) => console.log(err));
+  }, [userLong]);
 
-  useEffect(() => {
-    geolocal();
-  }, []);
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLat(position.coords.latitude);
+        setUserLong(position.coords.longitude);
+      },
+      (error) => console.log(error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 75000 }
+    );
+  }
 
-  // getLocation = async () => {
-  //   const { status } = await Permissions.askAsync(Permissions.location);
-  //   if (status !== "granted") {
-  //     console.log("denied");
-  //   }
-
-  //   const thisLocation = await Location.getCurrentPositionAsync();
-  //   setUserLocation(thisLocation);
-  // };
+  function userInputValue() {
+    console.log("this is what we are searching for");
+    console.log(input);
+  }
 
   return (
     <View style={styles.container}>
-      <Text>mike branch</Text>
       <StatusBar style="auto" />
+      <TextInput
+        style={{
+          height: 40,
+          width: "90%",
+          borderColor: "gray",
+          borderWidth: 1,
+        }}
+        onChangeText={(text) => setInput(text)}
+        value={input}
+        onSubmitEditing={userInputValue}
+      />
+      <TouchableOpacity onPress={getLocation}>
+        <Text>Get Location</Text>
+      </TouchableOpacity>
+
+      <YelpData yelp={yelp} />
     </View>
   );
 }

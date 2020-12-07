@@ -1,7 +1,6 @@
-export async function geolocal() {
+export function geoLocal() {
   if (navigator.geolocation) {
     console.log("working to get geolocation");
-
     let options = {
       timeout: 30000,
       maximumAge: 75000,
@@ -18,5 +17,5 @@ function work(position) {
 }
 
 function fail(err) {
-  console.log("it failed");
+  console.log("unable to get location");
 }
