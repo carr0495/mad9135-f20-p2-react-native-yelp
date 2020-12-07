@@ -6,9 +6,9 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  SafeAreaView,
 } from "react-native";
 import { yelpFetch } from "./api/yelp.service";
-import { geoLocal } from "./api/geolocation.service";
 import YelpData from "./components/YelpData";
 
 export default function App() {
@@ -21,8 +21,7 @@ export default function App() {
     console.log("fetching data");
     yelpFetch(userLat, userLong, input)
       .then((data) => {
-        let yelpData = data;
-        setYelp(yelpData);
+        setYelp(data);
       })
       .catch((err) => console.log(err));
   }, [userLong]);
@@ -44,8 +43,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
+
       <TextInput
         style={{
           height: 40,
@@ -57,12 +57,13 @@ export default function App() {
         value={input}
         onSubmitEditing={userInputValue}
       />
+
       <TouchableOpacity onPress={getLocation}>
         <Text>Get Location</Text>
       </TouchableOpacity>
 
-      <YelpData yelp={yelp} />
-    </View>
+      <YelpData style={styles.container} yelp={yelp} />
+    </SafeAreaView>
   );
 }
 
