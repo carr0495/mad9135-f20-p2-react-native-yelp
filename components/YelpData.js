@@ -1,12 +1,20 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 
 function YelpData({ yelp }) {
-  if (yelp.businesses) {
+  if (yelp) {
+    yelp.businesses.slice(0, 10).map((item) => {
+      console.log("these are the names of the resturants " + item.name);
+    });
+    console.log(Array.isArray(yelp.businesses));
     return (
-      <View>
-        <Text>{JSON.stringify(yelp.businesses[0].name)}</Text>
-      </View>
+      <SafeAreaView>
+        <View>
+          {yelp.businesses.slice(0, 1).map((item, index) => {
+            <Text key={index}>{item}</Text>;
+          })}
+        </View>
+      </SafeAreaView>
     );
   } else {
     return (
@@ -16,5 +24,11 @@ function YelpData({ yelp }) {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default YelpData;
