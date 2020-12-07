@@ -8,6 +8,7 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import { helpers } from "./styles";
 import { yelpFetch } from "./api/yelp.service";
 import YelpData from "./components/YelpData";
 
@@ -43,10 +44,10 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={helpers.container_black}>
       <StatusBar style="auto" />
 
-      <TextInput
+      {/* <TextInput
         style={{
           height: 40,
           width: "90%",
@@ -56,13 +57,13 @@ export default function App() {
         onChangeText={(text) => setInput(text)}
         value={input}
         onSubmitEditing={userInputValue}
-      />
+      /> */}
 
-      <TouchableOpacity onPress={getLocation}>
-        <Text>Get Location</Text>
+      <TouchableOpacity onPress={getLocation} style={helpers.button_red}>
+        <Text style={helpers.light_text}>Find Food</Text>
       </TouchableOpacity>
 
-      <YelpData style={styles.container} yelp={yelp} />
+      {/* <YelpData style={styles.container} yelp={yelp} /> */}
     </SafeAreaView>
   );
 }
