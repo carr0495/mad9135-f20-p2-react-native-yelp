@@ -1,21 +1,10 @@
-export function geoLocal() {
-  if (navigator.geolocation) {
-    console.log("working to get geolocation");
-    let options = {
-      timeout: 30000,
-      maximumAge: 75000,
-      enableHigherAccuracy: false,
-    };
-    navigator.geolocation.getCurrentPosition(work, fail, options);
-  } else {
-    return alert("Time for an upgrade dude.");
-  }
-}
-
-function work(position) {
-  console.log(position);
-}
-
-function fail(err) {
-  console.log("unable to get location");
+export function getLocation(setUserLat, setUserLong) {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      setUserLat(position.coords.latitude);
+      setUserLong(position.coords.longitude);
+    },
+    (error) => console.log(error),
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 75000 }
+  );
 }

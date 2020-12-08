@@ -8,70 +8,65 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./components/HomeScreen";
+import { helpers, colors } from "./styles";
 import { yelpFetch } from "./api/yelp.service";
 import YelpData from "./components/YelpData";
+import ListYelpData from "./components/ListYelpData";
 
 export default function App() {
   const [yelp, setYelp] = useState();
-  const [userLong, setUserLong] = useState();
-  const [userLat, setUserLat] = useState();
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    console.log("fetching data");
-    yelpFetch(userLat, userLong, input)
-      .then((data) => {
-        setYelp(data);
-      })
-      .catch((err) => console.log(err));
-  }, [userLong]);
-
-  function getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLat(position.coords.latitude);
-        setUserLong(position.coords.longitude);
-      },
-      (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 75000 }
-    );
-  }
+  // useEffect(() => {
+  //   console.log("fetching data");
+  //   yelpFetch(userLat, userLong, input)
+  //     .then((data) => {
+  //       setYelp(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [userLong]);
 
   function userInputValue() {
     console.log("this is what we are searching for");
     console.log(input);
   }
+  const Stack = createStackNavigator();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <StatusBar style="auto" />
-
-      <TextInput
-        style={{
-          height: 40,
-          width: "90%",
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        onChangeText={(text) => setInput(text)}
-        value={input}
-        onSubmitEditing={userInputValue}
-      />
-
-      <TouchableOpacity onPress={getLocation}>
-        <Text>Get Location</Text>
-      </TouchableOpacity>
-
-      <YelpData style={styles.container} yelp={yelp} />
-    </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerStyle: { backgroundColor: colors.red_dark },
+            headerTintColor: "white",
+          }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Yelp" component={ListYelpData} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+//region PREVIOUS TEXT INPUT
+{
+  /* <TextInput
+  style={{
+    height: 40,
+    width: "90%",
+    borderColor: "gray",
+    borderWidth: 1,
+  }}
+  onChangeText={(text) => setInput(text)}
+  value={input}
+  onSubmitEditing={userInputValue}
+/> */
+}
+{
+  /* <YelpData style={styles.container} yelp={yelp} /> */
+}
