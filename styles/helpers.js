@@ -8,13 +8,14 @@ export const button_red = {
   borderColor: colors.red_regular,
 };
 
-export const container_black = {
+export const container_lg = {
   flex: 1,
-  backgroundColor: colors.black_dark,
+  backgroundColor: colors.gray_extra_light,
   alignItems: "center",
   justifyContent: "center",
 };
 
 export const light_text = {
   color: colors.gray_extra_light,
+  fontSize: 14,
 };

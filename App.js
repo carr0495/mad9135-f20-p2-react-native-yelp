@@ -8,7 +8,10 @@ import {
   TextInput,
   SafeAreaView,
 } from "react-native";
-import { helpers } from "./styles";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./components/HomeScreen";
+import { helpers, colors } from "./styles";
 import { yelpFetch } from "./api/yelp.service";
 import YelpData from "./components/YelpData";
 
@@ -27,45 +30,44 @@ export default function App() {
       .catch((err) => console.log(err));
   }, [userLong]);
 
-  function getLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setUserLat(position.coords.latitude);
-        setUserLong(position.coords.longitude);
-      },
-      (error) => console.log(error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 75000 }
-    );
-  }
-
   function userInputValue() {
     console.log("this is what we are searching for");
     console.log(input);
   }
+  const Stack = createStackNavigator();
 
   return (
-    <SafeAreaView style={helpers.container_black}>
+    <>
       <StatusBar style="auto" />
-
-      {/* <TextInput
-        style={{
-          height: 40,
-          width: "90%",
-          borderColor: "gray",
-          borderWidth: 1,
-        }}
-        onChangeText={(text) => setInput(text)}
-        value={input}
-        onSubmitEditing={userInputValue}
-      /> */}
-
-      <TouchableOpacity onPress={getLocation} style={helpers.button_red}>
-        <Text style={helpers.light_text}>Find Food</Text>
-      </TouchableOpacity>
-
-      {/* <YelpData style={styles.container} yelp={yelp} /> */}
-    </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: colors.red_dark },
+            headerTintColor: "white",
+          }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
+}
+//region PREVIOUS TEXT INPUT
+{
+  /* <TextInput
+  style={{
+    height: 40,
+    width: "90%",
+    borderColor: "gray",
+    borderWidth: 1,
+  }}
+  onChangeText={(text) => setInput(text)}
+  value={input}
+  onSubmitEditing={userInputValue}
+/> */
+}
+{
+  /* <YelpData style={styles.container} yelp={yelp} /> */
 }
 
 const styles = StyleSheet.create({
