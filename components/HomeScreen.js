@@ -3,6 +3,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { helpers } from "../styles";
 import { getLocation } from "../api/geolocation.service";
+import Loader from "./Loader";
 
 function HomeScreen({ navigation }) {
   const [userLong, setUserLong] = useState();
@@ -25,12 +26,13 @@ function HomeScreen({ navigation }) {
         >
           <Text style={helpers.light_text}>Find Food</Text>
         </TouchableOpacity>
-        <Text>{userLat + " " + userLong}</Text>
+        {/* <Text>{userLat + " " + userLong}</Text> */}
       </SafeAreaView>
     );
   } else {
     return (
       <SafeAreaView style={helpers.container_lg}>
+        <Loader />
         <Text>Getting Location</Text>
       </SafeAreaView>
     );
