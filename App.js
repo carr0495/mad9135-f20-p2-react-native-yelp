@@ -15,6 +15,7 @@ import { helpers, colors } from "./styles";
 import { yelpFetch } from "./api/yelp.service";
 import YelpData from "./components/YelpData";
 import ListYelpData from "./components/ListYelpData";
+import BusinessDetails from "./components/BusinessDetails";
 
 export default function App() {
   const [yelp, setYelp] = useState();
@@ -48,6 +49,7 @@ export default function App() {
         >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Yelp" component={ListYelpData} />
+          <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
