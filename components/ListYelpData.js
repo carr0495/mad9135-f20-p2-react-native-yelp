@@ -3,6 +3,8 @@ import { Text, FlatList, TouchableOpacity, Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { yelpFetch } from "../api/yelp.service";
 import { helper, helpers } from "../styles/";
+
+import Loader from "./Loader";
 function ListYelpData({ navigation, route }) {
   const [yelpData, setYelpData] = useState();
 
@@ -65,7 +67,7 @@ function ListYelpData({ navigation, route }) {
   } else {
     return (
       <SafeAreaView>
-        <Text>{lat + " " + long}</Text>
+        <Loader />
       </SafeAreaView>
     );
   }
