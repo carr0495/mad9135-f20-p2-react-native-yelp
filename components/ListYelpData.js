@@ -47,7 +47,7 @@ function ListYelpData({ navigation, route }) {
     <Item
       item={item}
       onPress={() => {
-        navigation.navigate("BusinessDetails");
+        navigation.navigate("BusinessDetails", { id: item.id });
       }}
     />
   );
