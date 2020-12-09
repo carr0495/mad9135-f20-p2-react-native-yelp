@@ -29,6 +29,11 @@ function BusinessDetails({ route }) {
       <SafeAreaView style={helpers.container_lg}>
         <View>
           <Text>{businessInfo.name}</Text>
+          {console.log(`../images/regular_${businessInfo.rating}.png`)}
+          <Image
+            source={require(`../images/regular_3.png`)}
+            style={{ height: 20, width: 20 }}
+          />
 
           <Text>{businessInfo.rating}</Text>
           {/* 
@@ -36,12 +41,6 @@ function BusinessDetails({ route }) {
             source={require("../images/regular_0@2x.png")}
             style={{ height: 100, width: 100 }}
           /> */}
-
-          <Image
-            source={require("../assets/icon.png")}
-            style={{ height: 100, width: 100 }}
-          />
-
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="web"

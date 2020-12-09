@@ -38,7 +38,7 @@ function ListYelpData({ navigation, route }) {
         <Text>{"distance: " + Math.round(item.distance / 1000) + "/km"}</Text>
       </View>
       <Image
-        source={{ uri: item.image_url }}
+        source={item.image_url ? { uri: item.image_url } : null}
         style={{ width: 50, height: 50, borderRadius: 100 }}
       />
     </TouchableOpacity>
