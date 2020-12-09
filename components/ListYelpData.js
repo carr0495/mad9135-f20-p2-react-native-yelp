@@ -5,6 +5,7 @@ import { yelpFetch } from "../api/yelp.service";
 import { helpers } from "../styles/";
 import DisplayRating from "./DisplayRating";
 import Loader from "./Loader";
+
 function ListYelpData({ navigation, route }) {
   const [yelpData, setYelpData] = useState();
 
@@ -12,7 +13,6 @@ function ListYelpData({ navigation, route }) {
   const long = route.params.long;
 
   useEffect(() => {
-    console.log("allo");
     yelpFetch(lat, long)
       .then((data) => {
         setYelpData(data);
@@ -44,7 +44,7 @@ function ListYelpData({ navigation, route }) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={{ fontSize: 20 }}>{item.name}</Text>
-            <Text>{Math.round(item.distance / 1000) + " km"}</Text>
+            <Text>{parseFloat(item.distance / 1000).toFixed(2) + " km"}</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>

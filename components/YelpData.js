@@ -7,11 +7,10 @@ function YelpData({ yelp }) {
     yelp.businesses.slice(0, 1).map((item) => {
       console.log("these are the names of the resturants " + item.name);
     });
-    console.log(Array.isArray(yelp.businesses));
     return (
       <SafeAreaView>
         <View>
-          {yelp.businesses.slice(0, 10).map((item, index) => {
+          {yelp.businesses.map((item, index) => {
             <Text key={index}>{item}</Text>;
           })}
         </View>
