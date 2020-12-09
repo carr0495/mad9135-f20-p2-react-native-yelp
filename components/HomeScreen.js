@@ -24,7 +24,6 @@ function HomeScreen({ navigation }) {
         >
           <Text style={helpers.light_text}>Find Food</Text>
         </TouchableOpacity>
-        {/* <Text>{userLat + " " + userLong}</Text> */}
       </SafeAreaView>
     );
   } else {

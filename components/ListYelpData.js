@@ -33,15 +33,34 @@ function ListYelpData({ navigation, route }) {
         flexDirection: "row",
       }}
     >
-      <View>
-        <Text style={{ fontSize: 20 }}>{item.name}</Text>
-        <DisplayRating number={item.rating} />
-        <Text>{"distance: " + Math.round(item.distance / 1000) + "/km"}</Text>
+      <View style={{ flexDirection: "row" }}>
+        <Image
+          source={item.image_url ? { uri: item.image_url } : null}
+          style={{ width: 50, height: 50, borderRadius: 100 }}
+        />
+
+        <View style={{ marginLeft: 10 }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={{ fontSize: 20 }}>{item.name}</Text>
+            <Text>{Math.round(item.distance / 1000) + " km"}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <DisplayRating number={item.rating} />
+            <Text
+              style={{ paddingLeft: 10 }}
+            >{`${item.review_count} reviews`}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text>{item.price}</Text>
+            <Text> • </Text>
+            <Text>{`${item.categories[0].title}`}</Text>
+          </View>
+        </View>
       </View>
-      <Image
-        source={item.image_url ? { uri: item.image_url } : null}
-        style={{ width: 50, height: 50, borderRadius: 100 }}
-      />
     </TouchableOpacity>
   );
 

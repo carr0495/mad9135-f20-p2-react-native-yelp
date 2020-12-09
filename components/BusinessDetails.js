@@ -16,7 +16,6 @@ function BusinessDetails({ navigation, route }) {
   const [businessInfo, setBusinessInfo] = useState();
 
   useEffect(() => {
-    console.log("fetching business id information");
     yelpIDFetch(route.params.id)
       .then((data) => {
         setBusinessInfo(data);
@@ -25,16 +24,12 @@ function BusinessDetails({ navigation, route }) {
   }, []);
 
   if (businessInfo) {
-    navigation.setOptions({
-      title: businessInfo.name,
-    });
     return (
-      <SafeAreaView style={helpers.container_lg}>
+      <SafeAreaView style={helpers.container_lg} key={businessInfo.id}>
         <View>
           <Text>{businessInfo.name}</Text>
-          {console.log("THIS IS THE IMG THAT I NEED FOR REVIEW")}
-          {console.log(`../images/regular_${businessInfo.rating}.png`)}
           <DisplayRating number={businessInfo.rating} />
+          <Text>{`${businessInfo.review_count} Reviews`}</Text>
           <Text>{businessInfo.rating}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
@@ -66,6 +61,7 @@ function BusinessDetails({ navigation, route }) {
         </View>
 
         <View
+          key={businessInfo.id}
           style={{
             width: "90%",
             height: "auto",
