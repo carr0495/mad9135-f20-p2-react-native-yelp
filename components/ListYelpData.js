@@ -15,6 +15,9 @@ function ListYelpData({ navigation, route }) {
   useEffect(() => {
     yelpFetch(lat, long)
       .then((data) => {
+        data.businesses.sort(function (a, b) {
+          return a.distance - b.distance;
+        });
         setYelpData(data);
         console.log(data);
       })
@@ -40,11 +43,13 @@ function ListYelpData({ navigation, route }) {
         />
 
         <View style={{ marginLeft: 10 }}>
+          <Text style={{ textAlign: "right", position: "absolute", right: 0 }}>
+            {parseFloat(item.distance / 1000).toFixed(2) + " km"}
+          </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={{ fontSize: 20 }}>{item.name}</Text>
-            <Text>{parseFloat(item.distance / 1000).toFixed(2) + " km"}</Text>
+            <Text style={{ fontSize: 20, width: "85%" }}>{item.name}</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>

@@ -32,7 +32,11 @@ export default function App() {
           }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Yelp" component={ListYelpData} />
+          <Stack.Screen
+            name="Yelp"
+            component={ListYelpData}
+            options={{ headerLeft: null, headerTitleAlign: "center" }}
+          />
           <Stack.Screen
             name="BusinessDetails"
             component={BusinessDetails}
