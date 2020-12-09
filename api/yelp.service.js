@@ -23,6 +23,17 @@ async function yelpFetchBusinessWithID(id) {
   return response.json();
 }
 
+async function yelpFetchBusinessReviewsWithID(id) {
+  const url = `https://api.yelp.com/v3/businesses/${id}/reviews`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${KEY}`,
+    },
+  });
+  if (!response.ok) throw new Error(response.statusText);
+  return response.json();
+}
+
 export async function yelpFetch(lat, long) {
   const data = await yelpFetchBusiness(lat, long);
   return data;
@@ -30,5 +41,10 @@ export async function yelpFetch(lat, long) {
 
 export async function yelpIDFetch(id) {
   const data = await yelpFetchBusinessWithID(id);
+  return data;
+}
+
+export async function yelpFetchReview(id) {
+  const data = await yelpFetchBusinessReviewsWithID(id);
   return data;
 }

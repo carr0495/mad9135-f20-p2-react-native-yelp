@@ -82,14 +82,14 @@ function ListYelpData({ navigation, route }) {
 
   if (yelpData) {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <FlatList
           data={yelpData.businesses}
           renderItem={renderItem}
           keyExtractor={(item) => `${item.id}`}
           key={(item) => item.id}
         />
-      </SafeAreaView>
+      </View>
     );
   } else {
     return (

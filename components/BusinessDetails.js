@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Image, Linking } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { yelpIDFetch } from "../api/yelp.service";
+import { yelpIDFetch, yelpFetchReview } from "../api/yelp.service";
 import { colors, helpers } from "../styles/";
-import { Ionicons } from "@expo/vector-icons";
 import {
   MaterialCommunityIcons,
   Entypo,
@@ -12,9 +11,11 @@ import {
 import Loader from "./Loader";
 import DisplayRating from "./DisplayRating";
 import { ScrollView } from "react-native-gesture-handler";
+import { Row } from "native-base";
 
 function BusinessDetails({ navigation, route }) {
   const [businessInfo, setBusinessInfo] = useState();
+  const [businessReview, setBusinessReview] = useState();
 
   useEffect(() => {
     yelpIDFetch(route.params.id)
@@ -24,16 +25,33 @@ function BusinessDetails({ navigation, route }) {
       .catch((err) => console.log(err));
   }, []);
 
-  if (businessInfo) {
+  useEffect(() => {
+    yelpFetchReview(route.params.id)
+      .then((data) => {
+        setBusinessReview(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  if (businessInfo && businessReview) {
     // navigation.setOptions({
     //   title: businessInfo.name,
     // });
     return (
-      <SafeAreaView style={{ flex: 1 }} key={businessInfo.id}>
+      <View style={{ flex: 1 }} key={businessInfo.id}>
         <View>
-          <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
+          {/* title */}
+          <Text
+            style={{
+              fontSize: 30,
+              textAlign: "center",
+              padding: 20,
+              fontWeight: "bold",
+            }}
+          >
             {businessInfo.name}
           </Text>
+          {/* Icons for phone, website, and open/closed */}
           <View
             style={{
               flexDirection: "row",
@@ -62,38 +80,80 @@ function BusinessDetails({ navigation, route }) {
               <FontAwesome5 name="door-closed" size={24} color="black" />
             )}
           </View>
+        </View>
+        <ScrollView>
+          {/* business information */}
           <View style={{ margin: 20 }}>
             <DisplayRating number={businessInfo.rating} />
-
             <Text>{`${businessInfo.review_count} Reviews`}</Text>
-
+            <View style={{ flexDirection: "row" }}>
+              <Text>{businessInfo.price}</Text>
+              <Text> • </Text>
+              <Text>{`${businessInfo.categories[0].title}`}</Text>
+            </View>
             <View>
               {businessInfo.location.display_address.map((item) => (
-                <Text>{item}</Text>
+                <Text key={`${item} ${Math.random()}`}>{item}</Text>
               ))}
             </View>
             <Text>{businessInfo.phone}</Text>
           </View>
-        </View>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          automaticallyAdjustContentInsets={true}
-          style={{
-            width: "100%",
-            height: "auto",
-            flexDirection: "row",
-          }}
-        >
-          {businessInfo.photos.map((item) => (
-            <Image
-              source={{ uri: item }}
-              key={item}
-              style={{ height: 300, width: 300 }}
-            />
-          ))}
+
+          {/* images scroll view - horizontal*/}
+          <ScrollView
+            key={Math.random() * 1000}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            automaticallyAdjustContentInsets={true}
+            style={{
+              width: "100%",
+              height: "auto",
+              flexDirection: "row",
+            }}
+          >
+            {businessInfo.photos.map((item) => (
+              <Image
+                source={{ uri: item }}
+                key={item}
+                style={{ height: 300, width: 300 }}
+              />
+            ))}
+          </ScrollView>
+          {/* resturant reviews */}
+          <View>
+            {businessReview.reviews.map((item) => (
+              <View style={{ padding: 10 }} key={item.id}>
+                <View style={{ flexDirection: "row" }}>
+                  <Image
+                    source={{ uri: item.user.image_url }}
+                    style={{ height: 50, width: 50, borderRadius: 100 }}
+                  />
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      marginTop: 15,
+                      marginLeft: 10,
+                    }}
+                  >
+                    {item.user.name}
+                  </Text>
+                  <Text
+                    style={{
+                      marginTop: 15,
+                      marginLeft: 10,
+                      position: "absolute",
+                      right: 0,
+                    }}
+                  >
+                    {item.time_created}
+                  </Text>
+                </View>
+                <Text>{item.text}</Text>
+              </View>
+            ))}
+          </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   } else {
     return (
