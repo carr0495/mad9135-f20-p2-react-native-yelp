@@ -21,15 +21,6 @@ export default function App() {
   const [yelp, setYelp] = useState();
   const [input, setInput] = useState("");
 
-  // useEffect(() => {
-  //   console.log("fetching data");
-  //   yelpFetch(userLat, userLong, input)
-  //     .then((data) => {
-  //       setYelp(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [userLong]);
-
   function userInputValue() {
     console.log("this is what we are searching for");
     console.log(input);
