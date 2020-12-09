@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import Loader from "./Loader";
 
 function YelpData({ yelp }) {
   if (yelp) {
@@ -19,7 +20,7 @@ function YelpData({ yelp }) {
   } else {
     return (
       <View>
-        <Text>Nothing Yet</Text>
+        <Loader />
       </View>
     );
   }

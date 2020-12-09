@@ -9,6 +9,7 @@ import {
   Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
+import Loader from "./Loader";
 
 function BusinessDetails({ route }) {
   const [businessInfo, setBusinessInfo] = useState();
@@ -28,6 +29,18 @@ function BusinessDetails({ route }) {
       <SafeAreaView style={helpers.container_lg}>
         <View>
           <Text>{businessInfo.name}</Text>
+
+          <Text>{businessInfo.rating}</Text>
+          {/* 
+          <Image
+            source={require("../images/regular_0@2x.png")}
+            style={{ height: 100, width: 100 }}
+          /> */}
+
+          <Image
+            source={require("../assets/icon.png")}
+            style={{ height: 100, width: 100 }}
+          />
 
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
@@ -73,10 +86,9 @@ function BusinessDetails({ route }) {
     );
   } else {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={helpers.container_lg}>
         <Text>
-          We are working hard to look for the restuarant for you! Please sit
-          tight!
+          <Loader />
         </Text>
       </SafeAreaView>
     );

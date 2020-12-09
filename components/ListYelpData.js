@@ -3,6 +3,7 @@ import { Text, FlatList, TouchableOpacity, Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { yelpFetch } from "../api/yelp.service";
 import { helpers } from "../styles/";
+import Loader from "./Loader";
 function ListYelpData({ navigation, route }) {
   const [yelpData, setYelpData] = useState();
 
@@ -60,13 +61,14 @@ function ListYelpData({ navigation, route }) {
           data={yelpData.businesses}
           renderItem={renderItem}
           keyExtractor={(item) => `${item.id}`}
+          key={(item) => item.id}
         />
       </SafeAreaView>
     );
   } else {
     return (
       <SafeAreaView>
-        <Text>{lat + " " + long}</Text>
+        <Loader />
       </SafeAreaView>
     );
   }

@@ -10,9 +10,7 @@ function HomeScreen({ navigation }) {
   const [userLat, setUserLat] = useState();
 
   useEffect(() => {
-    console.log("top");
     getLocation(setUserLat, setUserLong);
-    console.log("bottom");
   }, []);
 
   if (userLat && userLong) {
