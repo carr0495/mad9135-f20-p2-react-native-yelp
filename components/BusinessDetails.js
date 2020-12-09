@@ -29,7 +29,6 @@ function BusinessDetails({ navigation, route }) {
     yelpFetchReview(route.params.id)
       .then((data) => {
         setBusinessReview(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -94,7 +93,7 @@ function BusinessDetails({ navigation, route }) {
             </View>
             <View>
               {businessInfo.location.display_address.map((item) => (
-                <Text>{item}</Text>
+                <Text key={`${item} ${Math.random()}`}>{item}</Text>
               ))}
             </View>
             <Text>{businessInfo.phone}</Text>
@@ -123,7 +122,7 @@ function BusinessDetails({ navigation, route }) {
           {/* resturant reviews */}
           <View>
             {businessReview.reviews.map((item) => (
-              <View style={{ padding: 10 }}>
+              <View style={{ padding: 10 }} key={item.id}>
                 <View style={{ flexDirection: "row" }}>
                   <Image
                     source={{ uri: item.user.image_url }}
