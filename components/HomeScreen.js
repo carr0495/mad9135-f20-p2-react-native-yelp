@@ -10,9 +10,7 @@ function HomeScreen({ navigation }) {
   const [userLat, setUserLat] = useState();
 
   useEffect(() => {
-    console.log("top");
     getLocation(setUserLat, setUserLong);
-    console.log("bottom");
   }, []);
 
   if (userLat && userLong) {
@@ -26,7 +24,6 @@ function HomeScreen({ navigation }) {
         >
           <Text style={helpers.light_text}>Find Food</Text>
         </TouchableOpacity>
-        {/* <Text>{userLat + " " + userLong}</Text> */}
       </SafeAreaView>
     );
   } else {

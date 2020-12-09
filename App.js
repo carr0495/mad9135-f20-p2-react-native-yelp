@@ -1,13 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  SafeAreaView,
-} from "react-native";
+import {} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./components/HomeScreen";
@@ -20,15 +13,6 @@ import BusinessDetails from "./components/BusinessDetails";
 export default function App() {
   const [yelp, setYelp] = useState();
   const [input, setInput] = useState("");
-
-  // useEffect(() => {
-  //   console.log("fetching data");
-  //   yelpFetch(userLat, userLong, input)
-  //     .then((data) => {
-  //       setYelp(data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [userLong]);
 
   function userInputValue() {
     console.log("this is what we are searching for");
@@ -49,7 +33,11 @@ export default function App() {
         >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Yelp" component={ListYelpData} />
-          <Stack.Screen name="BusinessDetails" component={BusinessDetails} />
+          <Stack.Screen
+            name="BusinessDetails"
+            component={BusinessDetails}
+            options={{ title: "Business Details" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Text, FlatList, TouchableOpacity, Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { yelpFetch } from "../api/yelp.service";
-import { helper, helpers } from "../styles/";
-
+import { helpers } from "../styles/";
+import DisplayRating from "./DisplayRating";
 import Loader from "./Loader";
+
 function ListYelpData({ navigation, route }) {
   const [yelpData, setYelpData] = useState();
 
@@ -12,7 +13,6 @@ function ListYelpData({ navigation, route }) {
   const long = route.params.long;
 
   useEffect(() => {
-    console.log("allo");
     yelpFetch(lat, long)
       .then((data) => {
         setYelpData(data);
@@ -33,15 +33,34 @@ function ListYelpData({ navigation, route }) {
         flexDirection: "row",
       }}
     >
-      <View>
-        <Text style={{ fontSize: 20 }}>{item.name}</Text>
-        <Text>{item.rating + "/5"}</Text>
-        <Text>{"distance: " + Math.round(item.distance / 1000) + "/km"}</Text>
+      <View style={{ flexDirection: "row" }}>
+        <Image
+          source={item.image_url ? { uri: item.image_url } : null}
+          style={{ width: 50, height: 50, borderRadius: 100 }}
+        />
+
+        <View style={{ marginLeft: 10 }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text style={{ fontSize: 20 }}>{item.name}</Text>
+            <Text>{parseFloat(item.distance / 1000).toFixed(2) + " km"}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <DisplayRating number={item.rating} />
+            <Text
+              style={{ paddingLeft: 10 }}
+            >{`${item.review_count} reviews`}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text>{item.price}</Text>
+            <Text> • </Text>
+            <Text>{`${item.categories[0].title}`}</Text>
+          </View>
+        </View>
       </View>
-      <Image
-        source={{ uri: item.image_url }}
-        style={{ width: 50, height: 50, borderRadius: 100 }}
-      />
     </TouchableOpacity>
   );
 
@@ -51,6 +70,8 @@ function ListYelpData({ navigation, route }) {
       onPress={() => {
         navigation.navigate("BusinessDetails", { id: item.id });
       }}
+      key={(item) => item.id}
+      title={(item) => item}
     />
   );
 
@@ -61,6 +82,7 @@ function ListYelpData({ navigation, route }) {
           data={yelpData.businesses}
           renderItem={renderItem}
           keyExtractor={(item) => `${item.id}`}
+          key={(item) => item.id}
         />
       </SafeAreaView>
     );

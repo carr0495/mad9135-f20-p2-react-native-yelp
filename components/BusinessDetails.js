@@ -9,26 +9,28 @@ import {
   Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
+import Loader from "./Loader";
+import DisplayRating from "./DisplayRating";
 
-function BusinessDetails({ route }) {
+function BusinessDetails({ navigation, route }) {
   const [businessInfo, setBusinessInfo] = useState();
 
   useEffect(() => {
-    console.log("fetching business id information");
     yelpIDFetch(route.params.id)
       .then((data) => {
         setBusinessInfo(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
 
   if (businessInfo) {
     return (
-      <SafeAreaView style={helpers.container_lg}>
+      <SafeAreaView style={helpers.container_lg} key={businessInfo.id}>
         <View>
           <Text>{businessInfo.name}</Text>
-
+          <DisplayRating number={businessInfo.rating} />
+          <Text>{`${businessInfo.review_count} Reviews`}</Text>
+          <Text>{businessInfo.rating}</Text>
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="web"
@@ -59,6 +61,7 @@ function BusinessDetails({ route }) {
         </View>
 
         <View
+          key={businessInfo.id}
           style={{
             width: "90%",
             height: "auto",
@@ -73,10 +76,9 @@ function BusinessDetails({ route }) {
     );
   } else {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={helpers.container_lg}>
         <Text>
-          We are working hard to look for the restuarant for you! Please sit
-          tight!
+          <Loader />
         </Text>
       </SafeAreaView>
     );
