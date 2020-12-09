@@ -10,6 +10,7 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 import Loader from "./Loader";
+import DisplayRating from "./DisplayRating";
 
 function BusinessDetails({ route }) {
   const [businessInfo, setBusinessInfo] = useState();
@@ -19,7 +20,6 @@ function BusinessDetails({ route }) {
     yelpIDFetch(route.params.id)
       .then((data) => {
         setBusinessInfo(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -29,18 +29,10 @@ function BusinessDetails({ route }) {
       <SafeAreaView style={helpers.container_lg}>
         <View>
           <Text>{businessInfo.name}</Text>
+          {console.log("THIS IS THE IMG THAT I NEED FOR REVIEW")}
           {console.log(`../images/regular_${businessInfo.rating}.png`)}
-          <Image
-            source={require(`../images/regular_3.png`)}
-            style={{ height: 20, width: 20 }}
-          />
-
+          <DisplayRating number={businessInfo.rating} />
           <Text>{businessInfo.rating}</Text>
-          {/* 
-          <Image
-            source={require("../images/regular_0@2x.png")}
-            style={{ height: 100, width: 100 }}
-          /> */}
           <View style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="web"

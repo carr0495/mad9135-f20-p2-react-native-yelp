@@ -50,7 +50,7 @@ function ListYelpData({ navigation, route }) {
       onPress={() => {
         navigation.navigate("BusinessDetails", { id: item.id });
       }}
-      key={item.id}
+      key={(item) => item.id}
     />
   );
 
