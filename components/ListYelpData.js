@@ -3,6 +3,7 @@ import { Text, FlatList, TouchableOpacity, Image, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { yelpFetch } from "../api/yelp.service";
 import { helpers } from "../styles/";
+import DisplayRating from "./DisplayRating";
 import Loader from "./Loader";
 function ListYelpData({ navigation, route }) {
   const [yelpData, setYelpData] = useState();
@@ -34,7 +35,7 @@ function ListYelpData({ navigation, route }) {
     >
       <View>
         <Text style={{ fontSize: 20 }}>{item.name}</Text>
-        <Text>{item.rating + "/5"}</Text>
+        <DisplayRating number={item.rating} />
         <Text>{"distance: " + Math.round(item.distance / 1000) + "/km"}</Text>
       </View>
       <Image
@@ -51,6 +52,7 @@ function ListYelpData({ navigation, route }) {
         navigation.navigate("BusinessDetails", { id: item.id });
       }}
       key={(item) => item.id}
+      title={(item) => item}
     />
   );
 

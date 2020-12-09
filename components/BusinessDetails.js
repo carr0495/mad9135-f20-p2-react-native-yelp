@@ -12,7 +12,7 @@ import {
 import Loader from "./Loader";
 import DisplayRating from "./DisplayRating";
 
-function BusinessDetails({ route }) {
+function BusinessDetails({ navigation, route }) {
   const [businessInfo, setBusinessInfo] = useState();
 
   useEffect(() => {
@@ -25,6 +25,9 @@ function BusinessDetails({ route }) {
   }, []);
 
   if (businessInfo) {
+    navigation.setOptions({
+      title: businessInfo.name,
+    });
     return (
       <SafeAreaView style={helpers.container_lg}>
         <View>
