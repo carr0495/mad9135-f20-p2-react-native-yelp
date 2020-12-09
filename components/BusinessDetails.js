@@ -11,7 +11,6 @@ import {
 import Loader from "./Loader";
 import DisplayRating from "./DisplayRating";
 import { ScrollView } from "react-native-gesture-handler";
-import { Row } from "native-base";
 
 function BusinessDetails({ navigation, route }) {
   const [businessInfo, setBusinessInfo] = useState();
