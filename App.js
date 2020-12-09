@@ -29,6 +29,7 @@ export default function App() {
           screenOptions={{
             headerStyle: { backgroundColor: colors.red_dark },
             headerTintColor: "white",
+            headerTitleAlign: "center",
           }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
