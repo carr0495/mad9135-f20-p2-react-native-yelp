@@ -15,20 +15,16 @@ function HomeScreen({ navigation }) {
 
   if (userLat && userLong) {
     return (
-      console.log(userLat),
-      console.log(userLong),
-      (
-        <SafeAreaView style={helpers.container_lg}>
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("Yelp", { lat: userLat, long: userLong })
-            }
-            style={helpers.button_red}
-          >
-            <Text style={helpers.light_text}>Find Food</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      )
+      <SafeAreaView style={helpers.container_lg}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Yelp", { lat: userLat, long: userLong })
+          }
+          style={helpers.button_red}
+        >
+          <Text style={helpers.light_text}>Find Food</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     );
   } else {
     return (

@@ -3,7 +3,6 @@ import { defined } from "react-native-reanimated";
 export function getLocation(setUserLat, setUserLong) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
-      console.log(position);
       setUserLat(position.coords.latitude);
       setUserLong(position.coords.longitude);
     },
