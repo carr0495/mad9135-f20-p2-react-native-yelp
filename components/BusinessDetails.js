@@ -32,10 +32,15 @@ function BusinessDetails({ navigation, route }) {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (businessInfo) {
+      navigation.setOptions({
+        title: businessInfo.name,
+      });
+    }
+  });
+
   if (businessInfo && businessReview) {
-    // navigation.setOptions({
-    //   title: businessInfo.name,
-    // });
     return (
       <View style={{ flex: 1 }} key={businessInfo.id}>
         <View>
