@@ -72,12 +72,6 @@ function BusinessDetails({ navigation, route }) {
               color="black"
               onPress={() => Linking.openURL(`tel:${businessInfo.phone}`)}
             />
-
-            {businessInfo.is_closed === false ? (
-              <FontAwesome5 name="door-open" size={24} color="black" />
-            ) : (
-              <FontAwesome5 name="door-closed" size={24} color="black" />
-            )}
           </View>
         </View>
         <ScrollView>

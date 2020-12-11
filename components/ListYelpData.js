@@ -19,7 +19,6 @@ function ListYelpData({ navigation, route }) {
           return a.distance - b.distance;
         });
         setYelpData(data);
-        console.log(data);
       })
       .catch((err) => console.log(err));
   }, []);
