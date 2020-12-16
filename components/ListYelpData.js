@@ -48,13 +48,15 @@ function ListYelpData({ navigation, route }) {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text style={{ fontSize: 20, width: "85%" }}>{item.name}</Text>
+            <Text style={{ fontSize: 20, width: "85%", marginBottom: 5 }}>
+              {item.name}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>
             <DisplayRating number={item.rating} />
             <Text
-              style={{ paddingLeft: 10 }}
+              style={{ paddingLeft: 10, marginBottom: 5 }}
             >{`${item.review_count} reviews`}</Text>
           </View>
 
@@ -81,14 +83,14 @@ function ListYelpData({ navigation, route }) {
 
   if (yelpData) {
     return (
-      <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }} edges={["right", "bottom", "left"]}>
         <FlatList
           data={yelpData.businesses}
           renderItem={renderItem}
           keyExtractor={(item) => `${item.id}`}
           key={(item) => item.id}
         />
-      </View>
+      </SafeAreaView>
     );
   } else {
     return (

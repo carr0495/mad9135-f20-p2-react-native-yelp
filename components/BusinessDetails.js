@@ -32,12 +32,21 @@ function BusinessDetails({ navigation, route }) {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (businessInfo) {
+      navigation.setOptions({
+        title: businessInfo.name,
+      });
+    }
+  });
+
   if (businessInfo && businessReview) {
-    // navigation.setOptions({
-    //   title: businessInfo.name,
-    // });
     return (
-      <View style={{ flex: 1 }} key={businessInfo.id}>
+      <SafeAreaView
+        style={{ flex: 1 }}
+        key={businessInfo.id}
+        edges={["right", "bottom", "left"]}
+      >
         <View>
           {/* title */}
           <Text
@@ -146,7 +155,7 @@ function BusinessDetails({ navigation, route }) {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   } else {
     return (
