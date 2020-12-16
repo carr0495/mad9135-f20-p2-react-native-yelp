@@ -42,7 +42,11 @@ function BusinessDetails({ navigation, route }) {
 
   if (businessInfo && businessReview) {
     return (
-      <View style={{ flex: 1 }} key={businessInfo.id}>
+      <SafeAreaView
+        style={{ flex: 1 }}
+        key={businessInfo.id}
+        edges={["right", "bottom", "left"]}
+      >
         <View>
           {/* title */}
           <Text
@@ -151,7 +155,7 @@ function BusinessDetails({ navigation, route }) {
             ))}
           </View>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   } else {
     return (
